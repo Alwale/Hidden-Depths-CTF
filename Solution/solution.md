@@ -90,5 +90,3 @@ This challenge incorporates multiple layers of steganography and forensic techni
 3. **Pixel Manipulation** - Examining specific pixel values to extract hidden data
 4. **ASCII Encoding** - Converting numeric values to text to reveal a password
 5. **Multi-layer Security** - Using the output from one layer as the key to unlock the next
-
-The challenge demonstrates how information can be hidden within digital images in ways that aren't visible to the naked eye or basic analysis tools.
