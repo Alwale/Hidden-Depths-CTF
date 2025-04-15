@@ -34,4 +34,4 @@ If you get stuck, check the [hints.md](hints.md) file for progressive hints that
 2. Work through each layer methodically
 3. The journey is as important as the destination
 
-Good luck, diver! The depths await...
+Good luck, diver! The depths await... ;)
