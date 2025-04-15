@@ -9,7 +9,7 @@ A crucial piece of information has been hidden in the depths of the attached ima
 ## Challenge Details
 - **Difficulty**: Medium
 - **Category**: Steganography, Forensics, Cryptography
-- **Author**: [Your Name]
+- **Author**: Al Waleed Al Saleemi
 
 ## Getting Started
 
