@@ -4,7 +4,7 @@
 
 A crucial piece of information has been hidden in the depths of the attached image. Your mission is to recover the hidden flag through multiple layers of steganography and forensic analysis.
 
-![Challenge Preview](challenge.jpg)
+![Challenge Preview](challenge.png)
 
 ## Challenge Details
 - **Difficulty**: Medium
