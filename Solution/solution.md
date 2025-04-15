@@ -7,7 +7,7 @@ This document provides the complete step-by-step solution for the "Hidden Depths
 Based on the underwater theme of the challenge, try using "dive" as the password for Steghide:
 
 ```bash
-steghide extract -sf challenge.png -p "dive"
+steghide extract -sf challenge.jpg -p "dive"
 ```
 
 This extracts a file named "clue1.txt" containing:
@@ -26,7 +26,7 @@ There are multiple ways to analyze the red channel values at coordinates (42,42)
 ### Option 1: Using a Python Script
 
 ```bash
-python3 extract_red_channel.py challenge.png -x 42 -y 42 -l 7
+python3 extract_red_channel.py challenge.jpg -x 42 -y 42 -l 7
 ```
 
 ### Option 2: Using GIMP
@@ -41,12 +41,12 @@ python3 extract_red_channel.py challenge.png -x 42 -y 42 -l 7
 ```bash
 for i in {0..6}; do
   x=$((42+i))
-  identify -format "Pixel ($x,42): %[pixel:p{$x,42}]\n" challenge.png
+  identify -format "Pixel ($x,42): %[pixel:p{$x,42}]\n" challenge.
 done
 ```
 
 All methods will reveal these red channel values:
-
+jpg
 | Pixel | Red Value | ASCII Character |
 |-------|-----------|-----------------|
 | 1     | 78        | N               |
@@ -64,7 +64,7 @@ The complete message is: `NEPTUNE`
 Use the discovered word "NEPTUNE" as the password for another Steghide extraction:
 
 ```bash
-steghide extract -sf challenge.png -p "NEPTUNE"
+steghide extract -sf challenge.jpg -p "NEPTUNE"
 ```
 
 This extracts a file named "flag.txt" containing the final flag:
