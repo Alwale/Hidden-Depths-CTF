@@ -2,27 +2,7 @@
 
 This document provides the complete step-by-step solution for the "Hidden Depths" CTF challenge.
 
-## Step 1: Analyze Image Metadata
-
-The first step is to examine the image metadata using ExifTool:
-
-```bash
-exiftool challenge.png
-```
-
-In the output, look for the "Comment" field, which contains the following hex code:
-```
-52 45 44 20 43 48 41 4E 4E 45 4C
-```
-
-Convert this hex to ASCII:
-```bash
-echo "52 45 44 20 43 48 41 4E 4E 45 4C" | xxd -r -p
-```
-
-This reveals the message: `RED CHANNEL`
-
-## Step 2: Extract First Hidden Message
+## Step 1: Extract First Hidden Message
 
 Based on the underwater theme of the challenge, try using "dive" as the password for Steghide:
 
@@ -32,22 +12,40 @@ steghide extract -sf challenge.png -p "dive"
 
 This extracts a file named "clue1.txt" containing:
 ```
-The surface reveals nothing. Look deeper at layer 42, 42, 42 - RGB holds the key. But first, check what the camera saw.
+The surface reveals nothing. Look deeper at layer 42, 42, 42 - RGB holds the key. Check the RED CHANNEL for what lies beneath.
 ```
 
 This clue points to:
 1. Pixel coordinates (42, 42)
-2. Looking at the RGB values (with emphasis on R - Red channel from the hex message)
+2. Looking at the RED CHANNEL values
 
-## Step 3: Analyze Red Channel Values
+## Step 2: Analyze Red Channel Values
 
-Using the provided Python script or writing your own:
+There are multiple ways to analyze the red channel values at coordinates (42,42):
+
+### Option 1: Using a Python Script
 
 ```bash
 python3 extract_red_channel.py challenge.png -x 42 -y 42 -l 7
 ```
 
-This script extracts the red channel values at the specified coordinates and converts them to ASCII characters:
+### Option 2: Using GIMP
+
+1. Open the image in GIMP
+2. Zoom in to coordinates (42,42)
+3. Use the Color Picker tool on each pixel
+4. Note the R value for each pixel
+
+### Option 3: Using ImageMagick
+
+```bash
+for i in {0..6}; do
+  x=$((42+i))
+  identify -format "Pixel ($x,42): %[pixel:p{$x,42}]\n" challenge.png
+done
+```
+
+All methods will reveal these red channel values:
 
 | Pixel | Red Value | ASCII Character |
 |-------|-----------|-----------------|
@@ -61,7 +59,7 @@ This script extracts the red channel values at the specified coordinates and con
 
 The complete message is: `NEPTUNE`
 
-## Step 4: Extract Final Flag
+## Step 3: Extract Final Flag
 
 Use the discovered word "NEPTUNE" as the password for another Steghide extraction:
 
@@ -76,17 +74,19 @@ Congratulations! You've reached the deepest point. Your flag is: FLAG{D33P_S34_S
 
 ## Summary of Tools Used
 
-1. **ExifTool** - For examining image metadata
-2. **Hex Decoder** - For converting hex to ASCII
-3. **Steghide** - For extracting hidden messages from the image
-4. **Python with PIL/NumPy** - For analyzing specific pixel values
+1. **Steghide** - For extracting hidden messages from the image
+2. **Image Analysis Tools** - Any of the following:
+   - Python with PIL/NumPy
+   - GIMP
+   - Photoshop
+   - ImageMagick
+   - Stegsolve
 
 ## Conceptual Overview
 
 This challenge incorporates multiple layers of steganography and forensic techniques:
 
-1. **EXIF Metadata Analysis** - Finding hidden information in the image's metadata
-2. **Basic Steganography** - Using common steganography tools with a thematic password
-3. **Pixel Manipulation** - Examining specific pixel values to extract hidden data
-4. **ASCII Encoding** - Converting numeric values to text to reveal a password
-5. **Multi-layer Security** - Using the output from one layer as the key to unlock the next
+1. **Basic Steganography** - Using Steghide with a thematic password ("dive")
+2. **Pixel Manipulation** - Examining specific pixel values to extract hidden data
+3. **ASCII Encoding** - Converting numeric values to text to reveal a password
+4. **Multi-layer Security** - Using the output from one layer as the key to unlock the next
