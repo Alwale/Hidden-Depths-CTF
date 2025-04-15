@@ -1,4 +1,4 @@
-# Hidden Depths: An Ocean of Secrets
+# Hidden Depths Drive: An Ocean of Secrets
 
 ## CTF Challenge Description
 
